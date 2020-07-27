@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: playerHealth + '%'}">
+										{{playerHealth}}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: bossHealth + '%'}">
+									{{bossHealth}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game" @click="resetGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="attack" @click="attack" >ATTACK</button>
+            <button id="special-attack" @click="attack($event, special=true)">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" @click="giveUp">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li :class="log.turnType === 'Player'? 'player-turn': 'monster-turn'" v-for="log in logs">
+									<template v-if="log.actionType === 'heal'">
+										Player has healed themselves {{log.damage}} health
+									</template>
+									<template v-else>
+										{{log.turnType}} has dealt {{log.damage}} damage
+
+									</template>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
